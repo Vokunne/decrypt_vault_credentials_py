@@ -1,21 +1,24 @@
 # vault<span>.py
-You can use this python module to decrypt sensitive values which are stored in a YAML file as separate variables encrypted by Ansible Vault. Also, this module can decrypt the whole file and return initial values. 
+You can use this python module to decrypt sensitive values which are stored in a YAML file as separated variables encrypted by Ansible Vault (as a secret version 1.1). Also, this module can decrypt the whole file and return initial values. 
 This module operates with Ansible Vault libraries directly. 
 
 ### Prerequisite
-Installed Python 3 (at least 3.10.10) and Ansible Core (it includes Ansible Vault). Password for Vault has been set either as an environment variable **ANSIBLE_VAULT_PASSWORD_FILE** or in the ansible.cfg file.
+Installed Python 3 (at least 3.10.10) and Ansible Core (it includes Ansible Vault). Password for Vault has been set either in an environment variable **ANSIBLE_VAULT_PASSWORD_FILE** or in the ansible.cfg file.
 ### Getting Started
 
-This module has been tested with
- - ansible-vault [core 2.16.2]
- - Python 3.10.10
+This module has been tested with:
+ - ansible [v11.13.0]
+ - ansible-core [v2.18.15]
+ - ansible-vault [v4.0.1]
+ - Python [v3.13.0]
 
 #### Scenario 1
 For example, you’ve created a YAML file (let it be variables.yml) and there has been added sensitive information like passwords, token etc. as key=value pairs. For instance, file may be look like that:
 ```
 ---
 username1: j.doe
-password1: $ANSIBLE_VAULT;1.1;AES256
+password1: !vault |
+           $ANSIBLE_VAULT;1.1;AES256
            32633430653435346562336338306662343948392099234111938524916163616363306134373437
            3438303933313962663363313766373563383564343036300a333039333231313765636331616539
            37616235363734982719453061356430383236373235363564343739323030386639386463323337
@@ -23,7 +26,8 @@ password1: $ANSIBLE_VAULT;1.1;AES256
            38613563303832653436346332356139643439646263666263633664303535666334
 
 username2: jj.doe
-password2: $ANSIBLE_VAULT;1.1;AES256
+password2: !vault |
+           $ANSIBLE_VAULT;1.1;AES256
            32633430653435346562336338306662343948392099234111938524916163616363306134373437
            3438303933313962663363313766373563383564343036300a333039333231313765636331616539
            37616235363734982719453061356430383236373235363564343739323030386639386463323337
